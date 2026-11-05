@@ -81,6 +81,14 @@ public final class AdbClient {
         this.port = port;
     }
 
+    public String host() {
+        return host;
+    }
+
+    public int port() {
+        return port;
+    }
+
     // ---- connection plumbing ----
 
     private Socket open(int timeoutMs) throws IOException {

@@ -1,10 +1,12 @@
 package com.mservice.farmstream.device;
 
 import com.mservice.farmstream.adb.AdbClient;
+import com.mservice.farmstream.adb.AdbServer;
 import com.mservice.farmstream.util.Json;
 import io.hydrangea.log.Logger;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -107,6 +109,7 @@ public final class DeviceRegistry {
     private void trackLoop() {
         while (!stopped) {
             boolean[] ok = {false};
+            boolean[] serverDown = {false};
             adb.trackDevices(new AdbClient.TrackerListener() {
                 @Override
                 public void onChange(List<AdbClient.DeviceEntry> list) {
@@ -118,10 +121,16 @@ public final class DeviceRegistry {
                 @Override
                 public void onEnd(Throwable cause) {
                     LOG.warn("device tracker is down ({}); restarting in {}ms", cause == null ? "ended" : cause.getMessage(), waitAfterError);
+                    serverDown[0] = cause instanceof ConnectException;
                 }
             });
             if (stopped) {
                 return;
+            }
+            if (serverDown[0] && AdbServer.canStart(adb.host()) && AdbServer.start(adb.port())) {
+                // the server is back: reconnect right away instead of backing off
+                waitAfterError = DEFAULT_WAIT_AFTER_ERROR;
+                continue;
             }
             try {
                 Thread.sleep(waitAfterError);

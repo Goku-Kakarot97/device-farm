@@ -78,6 +78,8 @@ Mọi tham số là env var hoặc flag `--KEY=value` (flag ưu tiên hơn env).
 | `CERT_PATH` + `KEY_PATH` | cả hai | `ssl/server.crt\|key` hoặc `../ssl/` | Cert PEM (PKCS#8 hoặc PKCS#1). `ssl/` không nằm trong git, tự sinh bằng `openssl req -x509` (xem README.md) |
 | `NO_TLS` | cả hai | `false` | Chạy HTTP thường (TLS ở ingress) |
 | `ADB_HOST` / `ADB_PORT` | agent | `127.0.0.1` / `5037` | adb server |
+| `ADB_AUTOSTART` | agent | `true` | Khi adb server chết (connection refused tới `ADB_PORT`) thì tự chạy `adb start-server` rồi connect lại ngay |
+| `ADB_BIN` | agent | _(tự tìm)_ | Đường dẫn adb cho `ADB_AUTOSTART`; mặc định tìm trong PATH, rồi `$ANDROID_HOME`/`$ANDROID_SDK_ROOT`/platform-tools, rồi `~/Library/Android/sdk/platform-tools` (macOS) hoặc `~/Android/Sdk/platform-tools` (Linux) |
 | `DB_HOST` `DB_PORT` `DB_NAME` `DB_USER` | agent | `127.0.0.1` / `5432` / `fs_core` / `fs_core` | PostgreSQL bảng `aegis_shield.devices` |
 | `DB_PASSWORD` | agent | **không có default** | Bắt buộc nếu dùng DB; thiếu thì log error và chạy in-memory. Trên farm host đặt trong `bashfile/.env` (git-ignored, mẫu ở `bashfile/.env.example`), script `farm-stream.sh` tự source |
 | `DB_DISABLED` | agent | `false` | `true` = không dùng DB (vẫn chạy in-memory; DB lỗi lúc start cũng tự fallback) |

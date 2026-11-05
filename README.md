@@ -112,6 +112,8 @@ Every option is an environment variable or a `--KEY=value` flag (flags win).
 | `CERT_PATH` + `KEY_PATH` | both | `ssl/server.crt\|key` or `../ssl/` | PEM certificate and key (see [TLS](#tls)) |
 | `NO_TLS` | both | `false` | Plain HTTP (terminate TLS at the ingress) |
 | `ADB_HOST` / `ADB_PORT` | agent | `127.0.0.1` / `5037` | adb server |
+| `ADB_AUTOSTART` | agent | `true` | When the local adb server is down (connection refused on `ADB_PORT`) run `adb start-server` and reconnect at once |
+| `ADB_BIN` | agent | _(lookup)_ | adb binary for `ADB_AUTOSTART`; default: PATH, then `$ANDROID_HOME`/`$ANDROID_SDK_ROOT`/platform-tools, then `~/Library/Android/sdk/platform-tools` (macOS) or `~/Android/Sdk/platform-tools` (Linux) |
 | `DB_HOST` `DB_PORT` `DB_NAME` `DB_USER` | agent | `127.0.0.1` / `5432` / `fs_core` / `fs_core` | PostgreSQL for `aegis_shield.devices` |
 | `DB_PASSWORD` | agent | **none** | Required to use the database. If unset, an error is logged and the agent runs in memory |
 | `DB_DISABLED` | agent | `false` | `true` = never touch the database |
