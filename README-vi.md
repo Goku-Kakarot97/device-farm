@@ -16,6 +16,20 @@ frontend xem được từ VPN/nhà.
 Wire protocol của tunnel (`[type:1][streamId:4][payload]`) và toàn bộ URL/endpoint giữ **nguyên** → relay Java và agent Node
 (hoặc ngược lại) nói chuyện được với nhau, frontend không phải đổi gì (frontend vẫn gọi `/d/farm1/<ip>:11000/...`).
 
+## Hình ảnh
+
+**Farm.** Các device Android cắm trong hộp USB hub; agent chạy trên máy nối với hộp này.
+
+![Hộp device farm](box-farm.jpeg)
+
+**Danh sách device.** Feed `devices-list` hiển thị trên frontend FS Aegis Shield, đi qua relay từ ngoài mạng farm.
+
+![Danh sách device](list-devices.png)
+
+**Stream device.** Stream scrcpy trực tiếp qua `proxy-adb`, bên cạnh inspector (screenshot, app source, element đang chọn).
+
+![Stream device](streaming-device.png)
+
 ## Build
 
 Cần JDK 21 + Maven (hydrangea lấy từ Maven Central).

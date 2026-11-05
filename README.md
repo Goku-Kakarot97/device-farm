@@ -37,6 +37,20 @@ Built on [Hydrangea](https://github.com/Goku-Kakarot97/hydrangea) (`hydrangea-ht
   configured the server keeps running in memory.
 - TLS with your own PEM cert/key (PKCS#8 or PKCS#1), or plain HTTP behind an ingress.
 
+## Screenshots
+
+**The farm.** Android devices in a USB hub box on the farm host; the agent runs on the machine the box is plugged into.
+
+![Device farm box](box-farm.jpeg)
+
+**Device list.** The `devices-list` feed rendered by the FS Aegis Shield frontend, reached through the relay from outside the farm network.
+
+![Device list](list-devices.png)
+
+**Streaming a device.** Live scrcpy stream over `proxy-adb` next to the UI inspector (screenshot, app source, selected element).
+
+![Streaming a device](streaming-device.png)
+
 ## Build
 
 Requires JDK 21 and Maven.
