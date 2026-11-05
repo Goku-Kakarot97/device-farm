@@ -1,0 +1,15 @@
+# build output
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+
+# runtime data created in the working directory
+uploads/
+recordings/
+*.log
+
+# self-signed TLS cert/key, generated per host (see README.md, "TLS")
+ssl/
